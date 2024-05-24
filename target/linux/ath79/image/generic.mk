@@ -436,6 +436,16 @@ define Device/avm_fritz300e
 endef
 TARGET_DEVICES += avm_fritz300e
 
+define Device/avm_fritz310_a
+  $(Device/avm)
+  SOC := ar9341
+  IMAGE_SIZE := 15232k
+  DEVICE_MODEL := FRITZ!WLAN Repeater 310 A
+  DEVICE_PACKAGES += rssileds -swconfig
+  SUPPORTED_DEVICES += fritz310_a
+endef
+TARGET_DEVICES += avm_fritz310_a
+
 define Device/avm_fritz4020
   $(Device/avm)
   SOC := qca9561
