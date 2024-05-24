@@ -28,7 +28,6 @@
 		};
 	};
 
-	// TESTME
 	leds {
 		compatible = "gpio-leds";
 
@@ -86,8 +85,7 @@
 
 		// TESTME flash claims to support 80 MHz + fast read
 		// spi-max-frequency = <80000000>;
-		// 80 MHz flash / fast read
-		// m25p,fast-read;
+		m25p,fast-read;
 
 		partitions {
 			compatible = "fixed-partitions";
@@ -118,5 +116,26 @@
 				read-only;
 			};
 		};
+	};
+};
+
+// TESTME
+// art parition table does not exists, calibration data seems to be part of the bootloader partition
+&wmac {
+	status = "okay";
+
+	mtd-cal-data = <&urloader 0x958>;
+
+	nvmem-cells = <&macaddr_urloader_0>;
+	nvmem-cell-names = "mac-address";
+};
+
+&urloader {
+	compatible = "nvmem-cells";
+	#address-cells = <1>;
+	#size-cells = <1>;
+
+	macaddr_urloader_0: macaddr@0 {
+		reg = <0x93c 0x6>;
 	};
 };
