@@ -1,0 +1,62 @@
+#include "rt3050.dtsi"
+
+#include <dt-bindings/gpio/gpio.h>
+#include <dt-bindings/input/input.h>
+
+/ {
+	compatible = "dlink,dhp-w306", "ralink,rt3052-soc";
+	model = "D-Link DHP-W306AV";
+
+	chosen {
+		bootargs = "console=ttyS0,115200";
+	};
+
+	flash@1f000000 {
+		compatible = "cfi-flash";
+		reg = <0x1f000000 0x400000>;
+		bank-width = <2>;
+
+		partitions {
+			compatible = "fixed-partitions";
+			#address-cells = <1>;
+			#size-cells = <1>;
+
+			partition@0 {	// Bootloader (u-boot)
+				label = "u-boot";
+				reg = <0x0 0x30000>;
+				read-only;
+			};
+
+			devdata: partition@30000 {	// Factory
+				label = "devdata";
+				reg = <0x30000 0x10000>;
+				read-only;
+			};
+
+			partition@40000 {	// Config
+				label = "devconf";
+				reg = <0x40000 0x20000>;
+				read-only;
+			};
+
+			partition@60000 {	// Language
+				label = "devlang";
+				reg = <0x60000 0x20000>;
+				read-only;
+			};
+
+			partition@80000 {
+				compatible = "denx,uimage";
+				label = "firmware";
+				reg = <0x80000 0x380000>;
+			};
+		};
+	};
+};
+
+&state_default {
+	gpio {
+		groups = "spi", "i2c", "jtag", "rgmii", "mdio", "uartf";
+		function = "gpio";
+	};
+};

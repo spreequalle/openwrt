@@ -339,6 +339,17 @@ define Device/dlink_dap-1350
 endef
 TARGET_DEVICES += dlink_dap-1350
 
+define Device/dlink_dhp-w306
+  SOC := rt3052
+  IMAGE_SIZE := 3584k
+  DEVICE_VENDOR := D-Link
+  DEVICE_MODEL := DHP-W306AV
+  DEVICE_VARIANT := A2
+  SUPPORTED_DEVICES += dhp-w306
+  DEFAULT := n
+endef
+TARGET_DEVICES += dlink_dhp-w306
+
 define Device/dlink_dcs-930
   SOC := rt3050
   IMAGE_SIZE := 3776k
